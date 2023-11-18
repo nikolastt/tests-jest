@@ -6,7 +6,7 @@ export const userHandler = async (req: Request, res: Response) => {
     const users = await getUsers();
     return res.status(200).json(users);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.sendStatus(500);
   }
 };
@@ -19,7 +19,7 @@ export const createUserHandle = async (req: Request, res: Response) => {
 
     return res.status(200).json(user);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.sendStatus(500);
   }
 };
