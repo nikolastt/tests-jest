@@ -52,3 +52,23 @@ describe("create user", () => {
     });
   });
 });
+
+describe("delete user", () => {
+  it("Return success to delete a user", async () => {
+    await createUser(userData.email, userData.name, userData.password);
+
+    const resposne = await request(app)
+      .delete("/api/user")
+      .send({ email: userData.email });
+
+    expect(resposne.status).toBe(200);
+  });
+
+  // it("Return an error if user not exists", async () => {
+  //   const response = await request(app)
+  //     .delete("/api/user")
+  //     .send({ email: "emailnotexists" });
+
+  //   expect(response).toBe("dois");
+  // });
+});

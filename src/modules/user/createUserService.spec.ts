@@ -1,5 +1,5 @@
 import { prisma } from "../../database/prisma";
-import { createUser } from "./service";
+import { createUser, deleteUSerByEmail, getUserByEmail } from "./service";
 
 const userData = {
   name: "nikolas",
@@ -41,4 +41,16 @@ describe("Create user", () => {
   //     },
   //   });
   // });
+});
+
+describe("Delete User", () => {
+  it("Delete success user", async () => {
+    await createUser(userData.email, userData.name, userData.password);
+
+    await deleteUSerByEmail(userData.email);
+
+    const user = await getUserByEmail(userData.email);
+
+    expect(user).toBe(null);
+  });
 });
