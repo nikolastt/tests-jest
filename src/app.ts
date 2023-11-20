@@ -17,7 +17,8 @@ app.use(
 );
 routes(app);
 
-const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => {
-  console.log("Server running in " + PORT);
-});
+const PORT = process.env.PORT || 3001;
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+}

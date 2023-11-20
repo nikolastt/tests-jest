@@ -10,9 +10,13 @@ export const userHandler = async (req: Request, res: Response) => {
   try {
     const users = await getUsers();
 
+    if (users.length <= 0) {
+      throw new Error("Users not avaliable");
+    }
+
     return res.status(200).json(users);
   } catch (err) {
-    return res.sendStatus(500);
+    return res.status(500).json((err as any).message);
   }
 };
 
