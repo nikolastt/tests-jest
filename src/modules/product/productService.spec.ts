@@ -18,7 +18,7 @@ beforeEach(async () => {
 });
 
 describe("Get Product", () => {
-  it("shoud be return all products", async () => {
+  it("Must be possible to return a product", async () => {
     await createProduct(productMock as Product);
 
     const products = await getProducts();
@@ -27,7 +27,7 @@ describe("Get Product", () => {
     expect(products[0]).toHaveProperty("id");
   });
 
-  it("Shoud be return a product with a specific id", async () => {
+  it("Must be possible to return a product of a given id", async () => {
     const productResponse = await createProduct(productMock as Product);
 
     const product = await getProductById(productResponse.id);
@@ -37,7 +37,7 @@ describe("Get Product", () => {
 });
 
 describe("Create Product", () => {
-  it("Shoud be can create a product", async () => {
+  it("Must be possible to create a product", async () => {
     const response = await createProduct(productMock as Product);
 
     expect(response).toHaveProperty("id");
@@ -45,7 +45,7 @@ describe("Create Product", () => {
 });
 
 describe("Delete Product", () => {
-  it("Shoud be can delete a product", async () => {
+  it("Must be possible to delete a product", async () => {
     const product = await createProduct(productMock as Product);
     await deleteProductById(product.id);
 

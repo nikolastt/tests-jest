@@ -7,6 +7,10 @@ const userData = {
   password: "teste",
 };
 
+beforeEach(async () => {
+  await prisma.user.deleteMany();
+});
+
 describe("Create user", () => {
   it("Deve ser possivel criar um usuário", async () => {
     const user = await createUser(
@@ -23,24 +27,6 @@ describe("Create user", () => {
       },
     });
   });
-
-  // it("Não deve ser possível criar dois usuários com o mesmo e-mail", async () => {
-  //   const user = await createUser(
-  //     userData.email,
-  //     userData.name,
-  //     userData.password
-  //   );
-
-  //   expect(
-  //     await createUser(userData.email, userData.name, userData.password)
-  //   ).rejects.toMatch("PrismaClientKnownRequestError");
-
-  //   await prisma.user.delete({
-  //     where: {
-  //       id: user.id,
-  //     },
-  //   });
-  // });
 });
 
 describe("Delete User", () => {

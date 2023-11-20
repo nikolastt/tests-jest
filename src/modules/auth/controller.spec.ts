@@ -14,7 +14,7 @@ const userData = {
 };
 
 describe("Get a token", () => {
-  it("Return a correct token", async () => {
+  it("Must return a valid token", async () => {
     await createUser(userData.email, userData.name, userData.password);
 
     const responseToken = await request(app).post("/api/auth").send(userData);
@@ -23,7 +23,7 @@ describe("Get a token", () => {
     expect(responseToken.body).toHaveProperty("token");
   });
 
-  it("Return an error if incorrect pass", async () => {
+  it("Should return an error if the password is incorrect", async () => {
     await createUser(userData.email, userData.name, "incorrect password");
 
     const responseToken = await request(app).post("/api/auth").send(userData);
@@ -31,7 +31,7 @@ describe("Get a token", () => {
     expect(responseToken.status).toBe(500);
   });
 
-  it("Return an error if not user", async () => {
+  it("Should return an error if it doesn't find a user", async () => {
     const responseToken = await request(app).post("/api/auth").send(userData);
 
     expect(responseToken.status).toBe(500);

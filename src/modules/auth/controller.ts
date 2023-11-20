@@ -11,7 +11,7 @@ export const authenticateHandler = async (req: Request, res: Response) => {
   try {
     const user = await getUserByEmail(email);
     if (!user) {
-      return res.sendStatus(500);
+      throw new Error("USer not found");
     }
 
     const isCorrectPassword = await bcrypt.compare(password, user.password);
@@ -28,8 +28,12 @@ export const authenticateHandler = async (req: Request, res: Response) => {
 
     return res.status(200).json({ token: token });
   } catch (err) {
-    console.log(err);
-
     return res.sendStatus(500);
   }
+};
+
+export const testAuthHandle = async (req: Request, res: Response) => {
+  return res.status(200).json({
+    auth: "success",
+  });
 };

@@ -14,7 +14,7 @@ beforeEach(async () => {
 });
 
 describe("Create user Controller", () => {
-  it("shoud be able to create a new user", async () => {
+  it("Should be possible to create a new user", async () => {
     const response = await request(app).post("/api/user").send(userData);
 
     expect(response.status).toBe(200);
@@ -22,14 +22,14 @@ describe("Create user Controller", () => {
 });
 
 describe("get users", () => {
-  it("Shoud be a resposne status 200", async () => {
+  it("Should return a status of 200 when fetching users", async () => {
     await createUser(userData.email, userData.name, userData.password);
     const response = await request(app).get("/api/user");
 
     expect(response.status).toBe(200);
   });
 
-  it("Shoud be return an error if dont have a user", async () => {
+  it("Should return an error if there are no users", async () => {
     const response = await request(app).get("/api/user");
 
     expect(response.status).toBe(500);
@@ -38,7 +38,7 @@ describe("get users", () => {
 });
 
 describe("create user", () => {
-  it("Return error if try create a user two many times", async () => {
+  it("Should return an error if you try to create a user with the same email", async () => {
     await createUser(userData.email, userData.name, userData.password);
     const response = await request(app).post("/api/user").send(userData);
 
@@ -47,7 +47,7 @@ describe("create user", () => {
 });
 
 describe("delete user", () => {
-  it("Return success to delete a user", async () => {
+  it("Must return success when deleting a user", async () => {
     await createUser(userData.email, userData.name, userData.password);
 
     const resposne = await request(app)
@@ -57,7 +57,7 @@ describe("delete user", () => {
     expect(resposne.status).toBe(200);
   });
 
-  it("Return an error if user not exists", async () => {
+  it("Should return an error if the user does not exist when trying to delete", async () => {
     const response = await request(app)
       .delete("/api/user")
       .send({ email: "emailnotexists" });

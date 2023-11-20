@@ -6,13 +6,13 @@ interface Data {
 }
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const { authorization } = req.headers;
-
-  if (!authorization) {
-    return res.sendStatus(401);
-  }
-
   try {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      throw new Error("unauthorized");
+    }
+
     const token = authorization.replace("Bearer", "").trim();
 
     const data = jwt.verify(token, process.env.JWT_SECRET as string);
@@ -22,8 +22,8 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if (id) {
       return next();
     }
-  } catch {
-    return res.sendStatus(401);
+  } catch (err) {
+    return res.status(500).json((err as any).message);
   }
 };
 

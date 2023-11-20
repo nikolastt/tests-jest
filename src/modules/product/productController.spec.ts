@@ -15,14 +15,14 @@ beforeEach(async () => {
 });
 
 describe("Get products", () => {
-  it("Shoud be return all products", async () => {
+  it("Must return all products", async () => {
     await createProduct(productMock as Product);
 
     const response = await request(app).get("/api/product");
     expect(response.status).toBe(200);
   });
 
-  it("Shoud be return an error if dont have a product", async () => {
+  it("Should return an error if it doesn't find a product", async () => {
     const response = await request(app).get("/api/product");
 
     expect(response.status).toBe(500);
@@ -31,14 +31,14 @@ describe("Get products", () => {
 });
 
 describe("Create product", () => {
-  it("Shoud be can create a product", async () => {
+  it("Must be possible to create a product", async () => {
     const response = await request(app).post("/api/product").send(productMock);
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("id");
   });
 
-  it("Shoud be return an error if create a product an the same name", async () => {
+  it("Should return an error if creating an existing product", async () => {
     await createProduct(productMock as Product);
 
     const response = await request(app).post("/api/product").send(productMock);
@@ -48,7 +48,7 @@ describe("Create product", () => {
 });
 
 describe("Delete product", () => {
-  it("Shoud be can delete a product", async () => {
+  it("Must be possible to delete a product", async () => {
     const product = await createProduct(productMock as Product);
 
     const response = await request(app).delete("/api/product").send({
@@ -58,7 +58,7 @@ describe("Delete product", () => {
     expect(response.status).toBe(200);
   });
 
-  it("Shoud be return an error if delete a product and not has a product", async () => {
+  it("Must be possible to return an error if when deleting a product it does not exist", async () => {
     const response = await request(app).delete("/api/product").send({
       id: "id error",
     });

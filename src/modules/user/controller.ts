@@ -28,7 +28,6 @@ export const createUserHandle = async (req: Request, res: Response) => {
 
     return res.status(200).json(user);
   } catch (err) {
-    // console.log(err);
     return res.sendStatus(500);
   }
 };
