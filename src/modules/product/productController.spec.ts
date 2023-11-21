@@ -66,3 +66,26 @@ describe("Delete product", () => {
     expect(response.status).toBe(500);
   });
 });
+
+describe("Edit product", () => {
+  it("Must return success when deleting a product", async () => {
+    const product = await createProduct(productMock as Product);
+
+    const resposne = await request(app)
+      .post("/api/product/edit")
+      .send({ ...product, name: "Edit name" });
+
+    expect(resposne.status).toBe(200);
+    expect(resposne.body.name).toBe("Edit name");
+  });
+
+  it("Must return success when deleting a user", async () => {
+    await createProduct(productMock as Product);
+
+    const resposne = await request(app)
+      .post("/api/product/edit")
+      .send(productMock);
+
+    expect(resposne.status).toBe(500);
+  });
+});

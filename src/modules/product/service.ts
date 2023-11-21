@@ -36,3 +36,14 @@ export const getProductById = async (id: string) => {
 
   return product;
 };
+
+export const editProduct = async (data: Partial<Product>) => {
+  const user = await prisma.product.update({
+    where: {
+      id: data.id,
+    },
+    data,
+  });
+
+  return user;
+};

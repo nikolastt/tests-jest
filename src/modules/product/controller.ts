@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { createProduct, deleteProductById, getProducts } from "./service";
+import {
+  createProduct,
+  deleteProductById,
+  editProduct,
+  getProducts,
+} from "./service";
 import { Product } from "@prisma/client";
 
 export const productHandler = async (req: Request, res: Response) => {
@@ -37,5 +42,20 @@ export const deleteProductHandle = async (req: Request, res: Response) => {
     return res.sendStatus(200);
   } catch (err) {
     return res.sendStatus(500);
+  }
+};
+
+export const editProductHandle = async (req: Request, res: Response) => {
+  const data = req.body;
+
+  try {
+    if (!data.id) {
+      throw new Error("Id not found");
+    }
+    const productEdit = await editProduct(data);
+
+    return res.status(200).json(productEdit);
+  } catch (err) {
+    return res.status(500).json((err as any).message);
   }
 };

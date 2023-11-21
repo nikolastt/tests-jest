@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { Prisma } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import { prisma } from "../../database/prisma";
 
 export const getUsers = async () => {
@@ -44,4 +44,15 @@ export const deleteUSerByEmail = async (email: string) => {
   });
 
   return;
+};
+
+export const editUser = async (data: Partial<User>) => {
+  const user = await prisma.user.update({
+    where: {
+      id: data.id,
+    },
+    data,
+  });
+
+  return user;
 };

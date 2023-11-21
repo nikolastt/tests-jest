@@ -2,6 +2,7 @@ import { Product } from "@prisma/client";
 import {
   createProduct,
   deleteProductById,
+  editProduct,
   getProductById,
   getProducts,
 } from "./service";
@@ -52,5 +53,14 @@ describe("Delete Product", () => {
     const productResponse = await getProductById(product.id);
 
     expect(productResponse).toBe(null);
+  });
+});
+
+describe("Edite Product", () => {
+  it("Edit success product", async () => {
+    const product = await createProduct(productMock as Product);
+    const userEdit = await editProduct({ ...product, name: "Edit name" });
+
+    expect(userEdit.name).toBe("Edit name");
   });
 });
